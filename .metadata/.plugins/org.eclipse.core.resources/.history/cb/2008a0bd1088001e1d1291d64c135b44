@@ -1,0 +1,34 @@
+<%@page import="com.mysql.jdbc.Driver"%>
+<%@page import="java.sql.*"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	String driverName="com.mysql.jdbc.Driver";
+	String dbUrl = "jdbc:mysql://localhost:3306/jdbc";
+	String userName="root";
+	String pass="";	
+	try{
+	Class.forName(driverName);//加载驱动
+	Connection con=DriverManager.getConnection(dbUrl, userName, pass);//得到连接对象
+	Statement stmt=con.createStatement();
+	ResultSet rs=stmt.executeQuery("select *form book_info");
+	rs.last();
+	//rs.first();
+	rs.absolute(2);
+	out.print(rs.getString("book_name"));
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+%>
+</body>
+</html>
